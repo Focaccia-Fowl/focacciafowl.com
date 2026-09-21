@@ -1,0 +1,23 @@
+---
+import Base from "../layouts/Base.astro";
+---
+<Base title="Sold out" description="That page is not on the shelf.">
+  <div class="page container soldout">
+    <svg width="260" height="120" viewBox="0 0 260 120" aria-hidden="true">
+      <ellipse cx="130" cy="104" rx="112" ry="9" fill="#000" opacity="0.1" />
+      <rect x="20" y="62" width="220" height="34" rx="8" fill="#9aa3a8" />
+      <rect x="28" y="56" width="204" height="30" rx="6" fill="#cdd5d9" />
+      <rect x="36" y="62" width="188" height="16" rx="4" fill="#b4bec3" />
+      <g fill="#c48a3d"><circle cx="70" cy="70" r="2.4" /><circle cx="96" cy="74" r="1.8" /><circle cx="150" cy="69" r="2.2" /><circle cx="178" cy="73" r="1.6" /><circle cx="124" cy="72" r="1.5" /></g>
+    </svg>
+    <p class="kicker">404</p>
+    <h1>Sold out.</h1>
+    <p class="lede">That shelf is empty. Try the menu.</p>
+    <p class="links"><a href="/">The shop</a><a href="/menu/">The menu</a><a href="/bench/">The bench</a></p>
+  </div>
+</Base>
+<style>
+  .soldout { text-align: center; min-height: 52vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .lede { margin-left: auto; margin-right: auto; }
+  .links { display: flex; gap: 22px; font-weight: 700; flex-wrap: wrap; justify-content: center; }
+</style>

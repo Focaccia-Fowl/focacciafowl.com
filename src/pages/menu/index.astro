@@ -1,0 +1,24 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import MenuItem from "../../components/MenuItem.astro";
+const menu = (await getCollection("menu")).sort((a, b) => a.data.order - b.data.order);
+---
+<Base title="Menu" description="Everything in the case at Focaccia Fowl, each one written up as a recipe card.">
+  <div class="page container">
+    <p class="kicker">the menu</p>
+    <h1>Everything in the case.</h1>
+    <p class="lede">
+      Each project is written up as a recipe card: what went into it, how it works, and the notes we
+      wish we had the first time. The kitchens themselves are private, so there are no links to code.
+    </p>
+    <p class="legend"><span class="r fresh">Fresh</span> in daily use <span class="r proving">Proving</span> still rising <span class="r old">Day old</span> did its job</p>
+    <div class="grid">{menu.map((entry) => <MenuItem entry={entry} />)}</div>
+  </div>
+</Base>
+<style>
+  .legend { color: var(--ink-soft); font-size: 0.95rem; margin: 0 0 30px; display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
+  .r { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; }
+  .fresh { background: #dfe9cf; color: #3d5a2a; } .proving { background: #fbe6b8; color: #7a5410; margin-left: 10px; } .old { background: #e6dfd2; color: #5f564b; margin-left: 10px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 26px; }
+</style>

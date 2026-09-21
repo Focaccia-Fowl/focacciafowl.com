@@ -1,0 +1,21 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import RecipeCard from "../../components/RecipeCard.astro";
+
+export async function getStaticPaths() {
+  const items = await getCollection("menu");
+  return items.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+<Base title={entry.data.title} description={entry.data.tagline}>
+  <div class="page container">
+    <p class="back"><a href="/menu/">Back to the menu</a></p>
+    <RecipeCard entry={entry}><Content /></RecipeCard>
+  </div>
+</Base>
+<style>
+  .back { max-width: 780px; margin: 0 auto 18px; font-weight: 700; }
+</style>

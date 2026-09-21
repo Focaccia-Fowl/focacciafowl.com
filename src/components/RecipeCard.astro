@@ -1,0 +1,58 @@
+---
+// A project written up as a recipe card. Ingredients come from frontmatter; the body supplies Method and Baker's notes.
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import BakerStamp from "./art/BakerStamp.astro";
+import Emblem from "./art/Emblem.astro";
+interface Props { entry: CollectionEntry<"menu"> }
+const { entry } = Astro.props;
+const STATUS = { fresh: "Fresh", proving: "Proving", "day-old": "Day old" } as const;
+---
+<article class="card">
+  <header>
+    <div class="titles">
+      <p class={`ribbon ribbon-${entry.data.status}`}>{STATUS[entry.data.status]}</p>
+      <h1>{entry.data.title}</h1>
+      <p class="tagline">{entry.data.tagline}</p>
+    </div>
+    <div class="cover">
+      {entry.data.cover
+        ? <Image src={entry.data.cover} alt={entry.data.coverAlt ?? ""} width={320} />
+        : <Emblem size={150} />}
+    </div>
+  </header>
+  <div class="lined">
+    <section class="ingredients" aria-labelledby="ing">
+      <h2 id="ing">Ingredients</h2>
+      <ul>{entry.data.ingredients.map((i) => <li>{i}</li>)}</ul>
+    </section>
+    <div class="body"><slot /></div>
+    <footer><BakerStamp bakers={entry.data.bakers} size={76} /></footer>
+  </div>
+</article>
+<style>
+  .card { max-width: 780px; margin: 0 auto; border-radius: 12px; background: #fffaf0; box-shadow: 0 4px 0 var(--cream-deep), 0 18px 40px rgba(42, 38, 34, 0.2); overflow: hidden; }
+  header { display: flex; justify-content: space-between; gap: 24px; align-items: center; padding: 28px 40px 22px; border-bottom: 3px solid rgba(181, 69, 47, 0.75); }
+  .lined { padding: 0 40px 28px; background: repeating-linear-gradient(180deg, transparent 0 31px, rgba(86, 140, 180, 0.22) 31px 32px); }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 6px 0 0; }
+  .tagline { font-family: var(--font-chalk); font-size: 1.55rem; line-height: 1.2; color: var(--brick-deep); margin: 8px 0 0; max-width: 34ch; }
+  .cover { flex: none; }
+  .cover :global(img) { border-radius: 10px; border: 6px solid #fff; box-shadow: 0 6px 16px rgba(42, 38, 34, 0.25); transform: rotate(2deg); }
+  .ribbon { display: inline-block; margin: 0; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; }
+  .ribbon-fresh { background: #dfe9cf; color: #3d5a2a; }
+  .ribbon-proving { background: #fbe6b8; color: #7a5410; }
+  .ribbon-day-old { background: #e6dfd2; color: #5f564b; }
+  h2, .body :global(h2) { font-size: 1.45rem; line-height: 32px; margin: 32px 0 0; color: var(--brick-deep); }
+  ul { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0 28px; }
+  li { position: relative; padding-left: 30px; line-height: 32px; }
+  li::before { content: ""; position: absolute; left: 2px; top: 8px; width: 15px; height: 15px; border: 2px solid var(--crust); border-radius: 4px; background: #fff; }
+  .body :global(p) { line-height: 32px; margin: 0 0 32px; }
+  .body :global(p:last-child) { margin-bottom: 0; }
+  footer { display: flex; justify-content: flex-end; margin-top: 8px; }
+  @media (max-width: 640px) {
+    header { flex-direction: column-reverse; gap: 8px; padding: 20px 18px 16px; align-items: flex-start; }
+    .lined { padding: 0 18px 22px; }
+    .cover { align-self: center; }
+    .tagline { margin-top: 10px; }
+  }
+</style>

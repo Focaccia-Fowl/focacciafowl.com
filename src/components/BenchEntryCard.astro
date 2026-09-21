@@ -1,0 +1,33 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import BakerStamp from "./art/BakerStamp.astro";
+import { entrySlug, tagSlug } from "../lib/bench.ts";
+interface Props { entry: CollectionEntry<"bench"> }
+const { entry } = Astro.props;
+const href = `/bench/${entrySlug(entry.id)}/`;
+const dateText = entry.data.date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
+---
+<article class="entry">
+  {entry.data.cover && <a href={href} class="thumb" tabindex="-1" aria-hidden="true"><Image src={entry.data.cover} alt="" width={360} /></a>}
+  <div class="text">
+    <p class="date"><time datetime={entry.data.date.toISOString()}>{dateText}</time>{entry.data.draft && <span class="draft">draft</span>}</p>
+    <h2><a href={href}>{entry.data.title}</a></h2>
+    <p class="sum">{entry.data.summary}</p>
+    <p class="tags">{entry.data.tags.map((t) => <a href={`/bench/tags/${tagSlug(t)}/`}>#{t}</a>)}</p>
+  </div>
+  <BakerStamp bakers={entry.data.bakers} size={60} />
+</article>
+<style>
+  .entry { display: flex; gap: 20px; align-items: center; background: #fffaf0; border-radius: 14px; padding: 18px 22px; box-shadow: 0 3px 0 var(--cream-deep), 0 8px 20px rgba(42, 38, 34, 0.12); }
+  .text { flex: 1; min-width: 0; }
+  .thumb :global(img) { display: block; width: 150px; height: 110px; object-fit: cover; border-radius: 8px; }
+  .date { margin: 0; font-size: 0.85rem; font-weight: 700; color: var(--ink-soft); letter-spacing: 0.04em; text-transform: uppercase; }
+  .draft { margin-left: 10px; background: var(--butter); color: #5a3d05; padding: 1px 8px; border-radius: 999px; }
+  h2 { font-size: 1.5rem; margin: 2px 0 4px; }
+  h2 a { color: var(--navy); text-decoration: none; }
+  h2 a:hover { color: var(--brick-deep); }
+  .sum { margin: 0 0 6px; color: var(--ink-soft); }
+  .tags { margin: 0; display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 0.92rem; font-weight: 700; }
+  @media (max-width: 600px) { .entry { flex-wrap: wrap; } .thumb { width: 100%; } .thumb :global(img) { width: 100%; height: 160px; } }
+</style>

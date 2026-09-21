@@ -1,0 +1,36 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import BenchEntryCard from "../../components/BenchEntryCard.astro";
+import Loaf from "../../components/art/Loaf.astro";
+import { visibleEntries, sortNewestFirst, allTags } from "../../lib/bench.ts";
+const entries = sortNewestFirst(visibleEntries(await getCollection("bench"), import.meta.env.DEV));
+const tags = allTags(entries);
+---
+<Base title="The bench" description="Notes from the Focaccia Fowl workbench: builds, boards, solder, and science.">
+  <div class="page container narrow">
+    <p class="kicker">the view into the kitchen</p>
+    <h1>The bench.</h1>
+    <p class="lede">Notes from the workbench: builds, boards, solder, and the occasional science tangent. Short entries count. A photo and two lines is a fine day's work.</p>
+    {tags.length > 0 && <p class="tags">{tags.map((t) => <a href={`/bench/tags/${t.slug}/`}>#{t.tag} <span>{t.count}</span></a>)}</p>}
+    {entries.length > 0 ? (
+      <div class="list">{entries.map((entry) => <BenchEntryCard entry={entry} />)}</div>
+    ) : (
+      <div class="empty">
+        <Loaf size={180} />
+        <h2>first batch is in the oven.</h2>
+        <p>Nothing on the bench yet. Check back, or follow the <a href="/rss.xml">RSS feed</a> and it will come to you.</p>
+      </div>
+    )}
+  </div>
+</Base>
+<style>
+  .narrow { max-width: 820px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 24px; }
+  .tags a { background: var(--cream-deep); padding: 4px 12px; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 0.92rem; }
+  .tags span { color: var(--ink-soft); font-weight: 400; }
+  .list { display: grid; gap: 18px; }
+  .empty { text-align: center; padding: 36px 20px 20px; background: #fffaf0; border-radius: 16px; border: 3px dashed var(--crust-light); }
+  .empty h2 { font-family: var(--font-chalk); font-size: 2.2rem; color: var(--brick-deep); margin-top: 8px; font-variation-settings: normal; }
+  .empty p { margin: 0 auto; max-width: 46ch; color: var(--ink-soft); }
+</style>
