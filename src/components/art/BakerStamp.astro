@@ -1,0 +1,31 @@
+---
+// Who baked it: a loaf, an eagle, or both. Pressed on like a rubber stamp.
+interface Props { bakers: "loaf" | "eagle" | "both"; size?: number }
+const { bakers, size = 64 } = Astro.props;
+const label = bakers === "loaf" ? "LoafOfBread" : bakers === "eagle" ? "DigitalEagle" : "LoafOfBread and DigitalEagle";
+const word = bakers === "loaf" ? "LOAF" : bakers === "eagle" ? "EAGLE" : "BOTH";
+---
+<svg class="stamp" width={size} height={size} viewBox="0 0 80 80" role="img">
+  <title>Baked by {label}</title>
+  <g fill="none" stroke="#b5452f" opacity="0.9">
+    <circle cx="40" cy="40" r="36" stroke-width="3" />
+    <circle cx="40" cy="40" r="30.5" stroke-width="1.4" stroke-dasharray="3 3" />
+  </g>
+  {(bakers === "loaf" || bakers === "both") && (
+    <g transform={bakers === "both" ? "translate(12 26)" : "translate(22 24)"} fill="#b5452f">
+      <rect x="0" y="6" width={bakers === "both" ? 26 : 36} height="14" rx="7" />
+      <rect x="3" y="9" width={bakers === "both" ? 20 : 30} height="3" rx="1.5" fill="#fbf3e1" opacity="0.7" />
+    </g>
+  )}
+  {(bakers === "eagle" || bakers === "both") && (
+    <g transform={bakers === "both" ? "translate(42 22)" : "translate(27 20)"} fill="#b5452f">
+      <circle cx="12" cy="12" r="10" />
+      <path d="M20 9c6 0 10 2 11 7-4-1-6 0-7 3-3-1-5-4-6-7z" />
+      <circle cx="15" cy="10" r="2.2" fill="#fbf3e1" />
+    </g>
+  )}
+  <text x="40" y="62" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="700" font-size="9" letter-spacing="1" fill="#b5452f">{word}</text>
+</svg>
+<style>
+  .stamp { transform: rotate(-8deg); flex: none; }
+</style>

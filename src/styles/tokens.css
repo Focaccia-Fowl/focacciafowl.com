@@ -1,0 +1,59 @@
+:root {
+  --cream: #fbf3e1;
+  --cream-deep: #f3e6c8;
+  --brick: #b5452f;
+  --brick-deep: #8f3322;
+  --navy: #1f2f4a;
+  --butter: #f2c46d;
+  --sky: #9cc9e3;
+  --crust: #8a5a2b;
+  --crust-light: #d9a55c;
+  --ink: #2a2622;
+  --ink-soft: #5f564b;
+  --chalk: #f4f1e8;
+  --slate: #232a2e;
+  --leaf: #5e7d4a;
+
+  --font-sign: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-chalk: "Caveat", "Bradley Hand", "Segoe Print", cursive;
+  --font-body: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* day is the default so the page is right with JS off */
+  --sky-top: #8fc3e0;
+  --sky-bottom: #e8f3f7;
+  --cloud: #ffffff;
+  --cloud-shade: #d8e8f0;
+  --orb: #fff3c4;
+  --orb-glow: rgba(255, 243, 196, 0.55);
+  --window-glow: #cfe3ea;
+  --window-frame: #6b4a2a;
+  --wall: #fbf3e1;
+  --wall-shade: #efe2c2;
+  --stars: 0;
+  --scene-dim: 1;
+}
+html[data-phase="dusk"] {
+  --sky-top: #e98f5e;
+  --sky-bottom: #f9dcae;
+  --cloud: #ffe2c9;
+  --cloud-shade: #eeb38f;
+  --orb: #ffd08a;
+  --orb-glow: rgba(255, 180, 110, 0.55);
+  --window-glow: #f6cf83;
+  --wall: #f8e8cc;
+  --wall-shade: #e8d0a8;
+  --scene-dim: 0.96;
+}
+html[data-phase="night"] {
+  --sky-top: #131d33;
+  --sky-bottom: #2f4269;
+  --cloud: #3b4d75;
+  --cloud-shade: #2a3958;
+  --orb: #f4f1e0;
+  --orb-glow: rgba(244, 241, 224, 0.35);
+  --window-glow: #f2c46d;
+  --wall: #cfc4ae;
+  --wall-shade: #b3a78f;
+  --stars: 1;
+  --scene-dim: 0.82;
+}

@@ -1,0 +1,122 @@
+---
+import "../styles/tokens.css";
+import Emblem from "../components/art/Emblem.astro";
+interface Props { title?: string; description?: string; }
+const SITE = "Focaccia Fowl";
+const {
+  title,
+  description = "The shop window for Focaccia Fowl. Half baked projects in electronics, software, and science, baked by LoafOfBread and DigitalEagle.",
+} = Astro.props;
+const fullTitle = title ? `${title} · ${SITE}` : `${SITE} · Where half baked fowl projects roam`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const path = Astro.url.pathname;
+const nav = [
+  { href: "/", label: "Shop" },
+  { href: "/menu/", label: "Menu" },
+  { href: "/bench/", label: "The bench" },
+];
+const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
+---
+<!doctype html>
+<html lang="en" data-phase="day">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#b5452f" />
+    <meta property="og:site_name" content={SITE} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title="Focaccia Fowl · The bench" href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,500..800,100,1;1,9..144,500..800,100,1&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+    <script is:inline>
+      // Sets the time of day before first paint. Hour boundaries mirror phaseForHour() in src/lib/sky.ts.
+      // ?phase=day|dusk|night overrides the clock, for testing.
+      try {
+        var q = new URLSearchParams(location.search).get("phase");
+        var h = new Date().getHours();
+        var p = h >= 6 && h < 18 ? "day" : h >= 18 && h < 20 ? "dusk" : "night";
+        if (q === "day" || q === "dusk" || q === "night") p = q;
+        document.documentElement.setAttribute("data-phase", p);
+      } catch (e) {}
+    </script>
+    <style is:global>
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0; background: var(--cream); color: var(--ink);
+        font: 17px/1.65 var(--font-body); -webkit-font-smoothing: antialiased; overflow-x: hidden;
+      }
+      /* watercolor paper grain over everything */
+      body::after {
+        content: ""; position: fixed; inset: 0; z-index: 100; pointer-events: none; opacity: 0.07; mix-blend-mode: multiply;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.25 0 0 0 0 0.12 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+      }
+      h1, h2, h3 { font-family: var(--font-sign); font-weight: 700; line-height: 1.1; margin: 0 0 0.5rem; color: var(--navy); font-variation-settings: "SOFT" 100, "WONK" 1; }
+      h1 { font-size: clamp(2.2rem, 5.5vw, 3.6rem); }
+      h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); }
+      h3 { font-size: 1.3rem; }
+      p { margin: 0 0 1rem; }
+      a { color: var(--brick-deep); text-decoration-thickness: 2px; text-underline-offset: 3px; text-decoration-color: var(--butter); }
+      a:hover { text-decoration-color: var(--brick); }
+      a:focus-visible, button:focus-visible { outline: 3px solid var(--butter); outline-offset: 3px; border-radius: 4px; }
+      code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.88em; background: var(--cream-deep); padding: 0.08em 0.35em; border-radius: 5px; }
+      img { max-width: 100%; height: auto; }
+      .container { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
+      .skip { position: absolute; left: -999px; }
+      .skip:focus { left: 12px; top: 12px; z-index: 200; background: var(--cream); padding: 8px 12px; border-radius: 8px; }
+
+      .site-header { position: relative; z-index: 5; background: var(--brick); color: var(--cream); border-bottom: 4px solid var(--brick-deep); }
+      .site-header .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; flex-wrap: wrap; padding-top: 8px; padding-bottom: 8px; }
+      .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--cream); text-decoration: none; font-family: var(--font-sign); font-weight: 800; font-size: 1.35rem; font-variation-settings: "SOFT" 100, "WONK" 1; }
+      .site-nav { display: flex; gap: 6px; flex-wrap: wrap; }
+      .site-nav a { color: var(--cream); text-decoration: none; font-weight: 700; padding: 6px 14px; border-radius: 999px; }
+      .site-nav a:hover { background: rgba(251, 243, 225, 0.16); }
+      .site-nav a[aria-current="page"] { background: var(--cream); color: var(--brick-deep); }
+
+      main { position: relative; z-index: 2; }
+      .page { padding: 48px 0 72px; }
+      .lede { font-size: 1.15rem; color: var(--ink-soft); max-width: 60ch; }
+      .kicker { font-family: var(--font-chalk); font-size: 1.5rem; color: var(--brick); margin: 0 0 2px; line-height: 1; }
+
+      .site-footer { position: relative; z-index: 2; background: var(--navy); color: var(--cream); padding: 28px 0 36px; font-size: 0.95rem; }
+      .site-footer .container { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; align-items: center; }
+      .site-footer a { color: var(--butter); text-decoration-color: rgba(242, 196, 109, 0.5); }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation: none !important; transition: none !important; }
+        html { scroll-behavior: auto; }
+      }
+      @media (max-width: 640px) {
+        body { font-size: 16px; }
+        .container { padding: 0 16px; }
+        .page { padding: 32px 0 56px; }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="/"><Emblem size={40} /> Focaccia Fowl</a>
+        <nav class="site-nav" aria-label="Primary">
+          {nav.map((n) => <a href={n.href} aria-current={isActive(n.href) ? "page" : undefined}>{n.label}</a>)}
+        </nav>
+      </div>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="site-footer">
+      <div class="container">
+        <div>Baked by <strong>LoafOfBread</strong> and <strong>DigitalEagle</strong>. Where half baked fowl projects roam.</div>
+        <div><a href="/rss.xml">RSS for the bench</a></div>
+      </div>
+    </footer>
+  </body>
+</html>

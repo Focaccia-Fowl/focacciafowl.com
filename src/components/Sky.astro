@@ -1,0 +1,76 @@
+---
+// The sky over the shop. Follows the visitor's clock through html[data-phase]; see Base.astro.
+import Cloud from "./art/Cloud.astro";
+import Eagle from "./art/Eagle.astro";
+// deterministic star field so every build paints the same sky
+let seed = 20260920;
+const rand = () => ((seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296);
+const stars = Array.from({ length: 46 }, () => ({ x: +(rand() * 100).toFixed(2), y: +(rand() * 62).toFixed(2), r: +(0.7 + rand() * 1.3).toFixed(2), d: +(rand() * 5).toFixed(1) }));
+const clouds = [
+  { top: "8%", size: 260, dur: 150, delay: -20, op: 1 },
+  { top: "22%", size: 170, dur: 110, delay: -70, op: 0.95 },
+  { top: "4%", size: 130, dur: 95, delay: -48, op: 0.85 },
+  { top: "34%", size: 210, dur: 170, delay: -120, op: 0.9 },
+  { top: "16%", size: 110, dur: 125, delay: -5, op: 0.8 },
+];
+---
+<div class="sky" aria-hidden="true">
+  <div class="stars">
+    {stars.map((s) => <i class="star" style={`left:${s.x}%;top:${s.y}%;width:${(s.r * 1.6).toFixed(1)}px;height:${(s.r * 1.6).toFixed(1)}px;animation-delay:-${s.d}s`} />)}
+  </div>
+  <div class="orb"></div>
+  {clouds.map((c) => (
+    <div class="drift" style={`top:${c.top};animation-duration:${c.dur}s;animation-delay:${c.delay}s;opacity:${c.op}`}>
+      <Cloud size={c.size} />
+    </div>
+  ))}
+  <div class="glider"><Eagle pose="glide" size={150} /></div>
+  <svg class="horizon" viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice">
+    <rect x="0" y="120" width="1200" height="100" fill="var(--sea, #6fb1c9)" />
+    <path d="M0 132h1200" stroke="#fff" stroke-width="2" opacity="0.35" />
+    <path d="M120 150h90M420 164h120M860 148h70M1010 170h110" stroke="#fff" stroke-width="2" opacity="0.3" stroke-linecap="round" />
+    <path d="M0 150c120-50 240-58 360-24 90-48 210-52 320-6 110-44 250-40 360 8 60-22 110-26 160-14v96H0z" fill="var(--hill-far, #8fb98a)" />
+    <g class="town">
+      <g fill="var(--wall-shade)"><rect x="160" y="128" width="34" height="30" /><rect x="204" y="118" width="28" height="40" /><rect x="880" y="126" width="36" height="32" /><rect x="926" y="134" width="26" height="24" /><rect x="560" y="122" width="24" height="34" /></g>
+      <g fill="#b5452f"><path d="M154 128l23-16 23 16zM200 118l18-14 18 14zM874 126l24-16 24 16zM922 134l17-12 17 12zM556 122l16-14 16 14z" /></g>
+      <g fill="var(--window-glow)"><rect x="170" y="138" width="6" height="8" /><rect x="212" y="130" width="6" height="8" /><rect x="892" y="136" width="6" height="8" /><rect x="568" y="132" width="5" height="8" /></g>
+    </g>
+    <path d="M0 176c160-36 300-40 470-10 150-40 330-42 480-4 90-20 170-22 250-8v66H0z" fill="var(--hill-near, #6f9f6a)" />
+  </svg>
+</div>
+<style>
+  .sky { position: absolute; inset: 0; overflow: hidden; background: linear-gradient(180deg, var(--sky-top), var(--sky-bottom) 78%); z-index: 0; transition: background 1s; }
+  .stars { position: absolute; inset: 0; width: 100%; height: 100%; opacity: var(--stars); transition: opacity 1s; }
+  .star { position: absolute; border-radius: 50%; background: #fdf8ec; animation: twinkle 5s ease-in-out infinite; }
+  @keyframes twinkle { 0%, 100% { opacity: 0.9; } 50% { opacity: 0.35; } }
+  .orb { position: absolute; top: 9%; right: 12%; width: clamp(54px, 7vw, 92px); aspect-ratio: 1; border-radius: 50%; background: var(--orb); box-shadow: 0 0 0 14px var(--orb-glow), 0 0 60px 30px var(--orb-glow); }
+  :global(html[data-phase="dusk"]) .orb { top: 46%; right: 20%; }
+  :global(html[data-phase="night"]) .orb { box-shadow: inset -14px -6px 0 0 rgba(180, 190, 215, 0.55), 0 0 40px 12px var(--orb-glow); }
+  .drift { position: absolute; left: 0; animation: drift linear infinite; will-change: transform; }
+  @keyframes drift { from { transform: translateX(-320px); } to { transform: translateX(calc(100vw + 60px)); } }
+  .glider { position: absolute; top: 18%; left: 0; transform: translateX(-200px); opacity: 0; }
+  .glider.fly { animation: glide 24s linear 1; opacity: 1; }
+  @keyframes glide {
+    0% { transform: translate(-200px, 40px) rotate(-4deg); }
+    25% { transform: translate(25vw, 0) rotate(-2deg); }
+    50% { transform: translate(50vw, 26px) rotate(3deg); }
+    75% { transform: translate(75vw, -8px) rotate(-3deg); }
+    100% { transform: translate(calc(100vw + 200px), 18px) rotate(2deg); }
+  }
+  .horizon { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: min(34%, 240px); filter: brightness(var(--scene-dim)); }
+  :global(html[data-phase="dusk"]) .horizon { --sea: #d89a78; --hill-far: #a88f6e; --hill-near: #7d7a55; }
+  :global(html[data-phase="night"]) .horizon { --sea: #22365a; --hill-far: #2c4258; --hill-near: #223646; }
+  @media (prefers-reduced-motion: reduce) {
+    .drift:nth-of-type(odd) { transform: translateX(18vw); }
+    .drift:nth-of-type(even) { transform: translateX(62vw); }
+  }
+</style>
+<script>
+  // Now and then the eagle crosses the sky. Never under reduced motion.
+  const glider = document.querySelector<HTMLElement>(".glider");
+  if (glider && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const schedule = (first: boolean) => window.setTimeout(() => glider.classList.add("fly"), first ? 6000 : 40000 + Math.random() * 50000);
+    glider.addEventListener("animationend", () => { glider.classList.remove("fly"); schedule(false); });
+    schedule(true);
+  }
+</script>

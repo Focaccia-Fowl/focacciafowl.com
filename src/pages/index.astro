@@ -1,0 +1,16 @@
+---
+import Base from "../layouts/Base.astro";
+import Sky from "../components/Sky.astro";
+import Loaf from "../components/art/Loaf.astro";
+import Eagle from "../components/art/Eagle.astro";
+import Emblem from "../components/art/Emblem.astro";
+import BakerStamp from "../components/art/BakerStamp.astro";
+---
+<Base>
+  <div style="position:relative;height:520px"><Sky />
+    <div style="position:relative;z-index:2;display:flex;gap:40px;align-items:flex-end;justify-content:center;padding-top:150px;flex-wrap:wrap">
+      <Eagle size={200} /><Loaf size={260} /><Emblem size={200} />
+      <div style="background:#fbf3e1;padding:12px;border-radius:12px;display:flex;gap:10px"><BakerStamp bakers="loaf" /><BakerStamp bakers="eagle" /><BakerStamp bakers="both" /></div>
+    </div>
+  </div>
+</Base>

@@ -1,0 +1,42 @@
+---
+// The fowl. Perched by default; pose="glide" is the spread-wing silhouette used in the sky.
+interface Props { size?: number; class?: string; title?: string; pose?: "perch" | "glide" }
+const { size = 160, class: cls, title, pose = "perch" } = Astro.props;
+---
+{pose === "perch" ? (
+  <svg class:list={["eagle", cls]} width={size} height={size * 1.125} viewBox="0 0 160 180" role={title ? "img" : undefined} aria-hidden={title ? undefined : "true"}>
+    {title && <title>{title}</title>}
+    <!-- tail -->
+    <path d="M44 138c-10 14-16 26-18 38 12-2 24-8 36-18z" fill="#fdf8ec" />
+    <path d="M38 150c-4 8-7 15-8 22" stroke="#e3d9c2" stroke-width="2" fill="none" stroke-linecap="round" />
+    <!-- body -->
+    <ellipse cx="78" cy="112" rx="44" ry="54" fill="#5a4030" />
+    <path d="M60 76c-22 22-30 52-20 84 22-8 38-30 44-62z" fill="#3f2c20" />
+    <path d="M48 112c6 4 12 4 18 0M46 128c6 4 12 4 18 0M50 144c5 3 10 3 15 0" stroke="#6d4f3c" stroke-width="2.5" fill="none" stroke-linecap="round" />
+    <!-- chest fluff -->
+    <path d="M98 92c10 14 12 36 4 56" stroke="#6d4f3c" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.7" />
+    <!-- head -->
+    <path d="M60 56c0-20 15-34 34-34s32 14 32 32c0 10-3 17-8 24 2 6-2 10-8 8-3 6-9 7-13 2-5 5-12 4-14-2-7 2-12-2-10-9-8-5-13-12-13-21z" fill="#fdf8ec" />
+    <!-- beak -->
+    <path d="M120 46c16-1 28 5 30 17-9-3-14 1-17 8-8-1-13-7-15-14z" fill="#f2b84b" />
+    <path d="M120 58c8 2 14 1 20-2" stroke="#c98a2b" stroke-width="2" fill="none" stroke-linecap="round" />
+    <!-- eye, brow, blush -->
+    <circle cx="106" cy="46" r="6" fill="#2a2622" />
+    <circle cx="108" cy="44" r="2" fill="#fff" />
+    <path d="M96 37c6-4 13-4 19 0" stroke="#5a4030" stroke-width="3.5" fill="none" stroke-linecap="round" />
+    <circle cx="96" cy="60" r="6" fill="#f0a08a" opacity="0.45" />
+    <!-- feet -->
+    <path d="M66 162c-4 6-4 10 0 12h10c2-4 1-8-2-12zM90 162c-4 6-4 10 0 12h10c2-4 1-8-2-12z" fill="#f2b84b" />
+  </svg>
+) : (
+  <svg class:list={["eagle-glide", cls]} width={size} height={size * 0.36} viewBox="0 0 250 90" role={title ? "img" : undefined} aria-hidden={title ? undefined : "true"}>
+    {title && <title>{title}</title>}
+    <path d="M128 46C104 18 62 6 6 16c10 4 16 8 20 13-8 0-13 2-17 5 12 1 20 4 26 9-7 1-11 3-14 6 30 0 62 4 96 8z" fill="#4a3426" />
+    <path d="M128 46c22-26 60-38 116-30-10 4-16 8-20 13 8 0 13 2 17 5-12 1-20 4-26 9 7 1 11 3 14 6-30 0-60 3-92 7z" fill="#5a4030" />
+    <ellipse cx="126" cy="52" rx="20" ry="10" fill="#4a3426" />
+    <path d="M108 54c-10 4-18 10-24 18 12 0 22-4 30-12z" fill="#fdf8ec" />
+    <circle cx="146" cy="47" r="9" fill="#fdf8ec" />
+    <path d="M153 45c6 0 10 2 11 6-5-1-8 0-10 3z" fill="#f2b84b" />
+    <circle cx="149" cy="45" r="1.6" fill="#2a2622" />
+  </svg>
+)}

@@ -1,0 +1,41 @@
+---
+// A slab of focaccia, fresh enough to steam.
+interface Props { size?: number; class?: string; title?: string; steam?: boolean }
+const { size = 200, class: cls, title, steam = true } = Astro.props;
+const dimples = [[52,74],[78,68],[104,75],[130,68],[152,76],[64,88],[92,86],[120,89],[144,88]];
+const salt = [[44,70],[70,80],[88,72],[112,66],[138,80],[158,70],[100,92],[60,96],[128,96],[150,92],[76,92]];
+const sprigs = [[60,66,-20],[96,78,15],[126,72,-35],[146,84,25],[80,94,-10]];
+---
+<svg class:list={["loaf", cls]} width={size} height={size * 0.7} viewBox="0 0 200 140" role={title ? "img" : undefined} aria-hidden={title ? undefined : "true"}>
+  {title && <title>{title}</title>}
+  {steam && (
+    <g class="steam" fill="none" stroke="var(--steam-color, #cdbb98)" stroke-width="4" stroke-linecap="round">
+      <path d="M72 50c-7-9 7-13 0-24" />
+      <path d="M100 46c-7-10 7-14 0-26" />
+      <path d="M128 50c-7-9 7-13 0-24" />
+    </g>
+  )}
+  <ellipse cx="100" cy="124" rx="82" ry="8" fill="#000" opacity="0.12" />
+  <rect x="18" y="62" width="164" height="58" rx="24" fill="#a3632a" />
+  <rect x="18" y="58" width="164" height="50" rx="24" fill="#c98a3e" />
+  <rect x="24" y="56" width="152" height="44" rx="21" fill="#e6b15f" />
+  <rect x="36" y="60" width="128" height="13" rx="6.5" fill="#f6d48a" opacity="0.75" />
+  {dimples.map(([x, y]) => <ellipse cx={x} cy={y} rx="7" ry="4.2" fill="#bf8236" opacity="0.85" />)}
+  {sprigs.map(([x, y, r]) => (
+    <g transform={`translate(${x} ${y}) rotate(${r})`} stroke="#5e7d4a" stroke-width="2.2" stroke-linecap="round">
+      <path d="M-7 0h14" /><path d="M-3 0l-3-4M1 0l-3 4M4 0l3-4" />
+    </g>
+  ))}
+  {salt.map(([x, y]) => <circle cx={x} cy={y} r="1.7" fill="#fffaf0" />)}
+</svg>
+<style>
+  .steam path { animation: steam 4.5s ease-in-out infinite; opacity: 0; }
+  .steam path:nth-child(2) { animation-delay: 1.4s; }
+  .steam path:nth-child(3) { animation-delay: 2.7s; }
+  @keyframes steam {
+    0% { transform: translateY(8px); opacity: 0; }
+    30% { opacity: 0.85; }
+    100% { transform: translateY(-14px); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { .steam path { opacity: 0.6; } }
+</style>

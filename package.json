@@ -1,0 +1,17 @@
+{
+  "name": "focacciafowl-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "node --test \"src/lib/*.test.ts\"",
+    "check-links": "node scripts/check-links.mjs",
+    "verify": "npm test && npm run build && npm run check-links"
+  },
+  "dependencies": {
+    "astro": "^7.3.3"
+  }
+}
