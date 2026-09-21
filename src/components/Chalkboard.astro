@@ -1,0 +1,33 @@
+---
+// The A-frame board out front. Shows the newest bench entry, or an honest empty state.
+import type { CollectionEntry } from "astro:content";
+import { entrySlug } from "../lib/bench.ts";
+interface Props { entry?: CollectionEntry<"bench"> }
+const { entry } = Astro.props;
+const dateText = entry?.data.date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+---
+<aside class="board" aria-label="Fresh today">
+  <p class="head">fresh today</p>
+  {entry ? (
+    <>
+      <h3><a href={`/bench/${entrySlug(entry.id)}/`}>{entry.data.title}</a></h3>
+      <p class="sum">{entry.data.summary}</p>
+      <p class="date">{dateText}</p>
+    </>
+  ) : (
+    <>
+      <h3>first batch is in the oven.</h3>
+      <p class="sum">Notes from the workbench will show up here: builds, boards, solder, and science.</p>
+      <p class="date"><a href="/bench/">visit the bench</a></p>
+    </>
+  )}
+</aside>
+<style>
+  .board { background: var(--slate); color: var(--chalk); border: 10px solid var(--window-frame); border-radius: 10px; padding: 18px 22px 20px; font-family: var(--font-chalk); box-shadow: 0 10px 22px rgba(42, 38, 34, 0.3), inset 0 0 40px rgba(255, 255, 255, 0.05); transform: rotate(-1.5deg); }
+  .head { margin: 0 0 4px; font-size: 1.5rem; color: var(--butter); text-decoration: underline wavy rgba(242, 196, 109, 0.6); text-underline-offset: 6px; }
+  h3 { font-family: var(--font-chalk); font-weight: 700; color: var(--chalk); font-size: 2rem; line-height: 1.05; margin: 10px 0 6px; font-variation-settings: normal; }
+  h3 a { color: var(--chalk); text-decoration-color: rgba(244, 241, 232, 0.5); }
+  .sum { font-size: 1.35rem; line-height: 1.25; margin: 0 0 8px; color: #e4dfd2; }
+  .date { margin: 0; font-size: 1.2rem; color: var(--butter); }
+  .date a { color: var(--butter); }
+</style>

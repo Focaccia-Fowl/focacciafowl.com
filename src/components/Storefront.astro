@@ -1,0 +1,59 @@
+---
+// The shop: sign, awning, display window, and the pavement out front. Content arrives through slots.
+import Loaf from "./art/Loaf.astro";
+import Eagle from "./art/Eagle.astro";
+---
+<div class="shop">
+  <div class="signboard">
+    <div class="perch" aria-hidden="true"><Eagle size={92} /></div>
+    <div class="sign">
+      <h1>Focaccia Fowl</h1>
+      <p>Where half baked fowl projects roam.</p>
+    </div>
+    <div class="loafside" aria-hidden="true"><Loaf size={120} /></div>
+  </div>
+  <div class="awning" aria-hidden="true"></div>
+  <div class="wall">
+    <section class="window" aria-labelledby="case-title">
+      <h2 id="case-title">In the case today</h2>
+      <div class="shelf"><slot name="case" /></div>
+    </section>
+    <div class="front">
+      <slot name="board" />
+      <slot name="plaque" />
+    </div>
+  </div>
+  <div class="pavement" aria-hidden="true"></div>
+</div>
+<style>
+  .shop { position: relative; z-index: 2; max-width: 1000px; margin: 0 auto; padding: 0 16px; }
+  .signboard { display: flex; align-items: flex-end; justify-content: center; gap: 8px; padding-top: 150px; }
+  .sign { background: linear-gradient(180deg, #9a6a3a, #7d5228); border: 6px solid #5f3d1c; border-radius: 18px; padding: 14px 40px 16px; text-align: center; box-shadow: 0 8px 0 #4a2f15, 0 16px 26px rgba(42, 38, 34, 0.3); position: relative; }
+  .sign::before, .sign::after { content: ""; position: absolute; top: -34px; width: 6px; height: 34px; background: #4a2f15; border-radius: 3px; }
+  .sign::before { left: 18%; } .sign::after { right: 18%; }
+  .sign h1 { color: var(--cream); margin: 0; font-weight: 800; font-size: clamp(2.3rem, 7vw, 4.4rem); letter-spacing: 0.01em; text-shadow: 3px 3px 0 var(--brick-deep), 5px 5px 0 rgba(0, 0, 0, 0.25); }
+  .sign p { margin: 2px 0 0; font-family: var(--font-chalk); font-size: clamp(1.2rem, 2.6vw, 1.7rem); color: var(--butter); line-height: 1.1; }
+  .perch { margin-bottom: -8px; --steam-color: #fff; }
+  .loafside { margin-bottom: -4px; --steam-color: rgba(255, 255, 255, 0.9); }
+  .awning {
+    height: 74px; margin: 0 -10px; position: relative; z-index: 3;
+    background: repeating-linear-gradient(90deg, var(--brick) 0 56px, var(--cream) 56px 112px);
+    border-radius: 10px 10px 0 0; box-shadow: 0 10px 16px rgba(42, 38, 34, 0.22);
+    -webkit-mask: linear-gradient(#000 0 0) top / 100% calc(100% - 27px) no-repeat, radial-gradient(circle at 28px 0, #000 27px, transparent 28px) bottom left / 56px 28px repeat-x;
+    mask: linear-gradient(#000 0 0) top / 100% calc(100% - 27px) no-repeat, radial-gradient(circle at 28px 0, #000 27px, transparent 28px) bottom left / 56px 28px repeat-x;
+  }
+  .wall { background: linear-gradient(180deg, var(--wall-shade), var(--wall) 60px); margin-top: -28px; padding: 60px 28px 36px; border-left: 8px solid var(--wall-shade); border-right: 8px solid var(--wall-shade); transition: background 1s; }
+  .window { background: linear-gradient(160deg, color-mix(in srgb, var(--window-glow) 85%, #fff), var(--window-glow)); border: 12px solid var(--window-frame); border-radius: 14px; padding: 18px 22px 26px; box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.45), 0 0 60px color-mix(in srgb, var(--window-glow) 45%, transparent); transition: background 1s; }
+  .window h2 { text-align: center; margin: 0 0 16px; font-size: 1.5rem; color: var(--navy); }
+  .shelf { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; padding-bottom: 14px; border-bottom: 10px solid var(--window-frame); }
+  .front { display: grid; grid-template-columns: 1.1fr 1fr; gap: 32px; align-items: center; margin-top: 36px; }
+  .pavement { height: 46px; margin: 0 -10px; background: var(--navy); border-top: 8px solid #16223a; border-radius: 0 0 6px 6px; background-image: radial-gradient(ellipse at 20px 14px, rgba(255, 255, 255, 0.07) 12px, transparent 13px); background-size: 46px 30px; }
+  @media (max-width: 720px) {
+    .signboard { padding-top: 96px; }
+    .perch, .loafside { display: none; }
+    .sign { padding: 12px 22px 14px; }
+    .wall { padding: 52px 14px 28px; }
+    .window { padding: 14px 12px 20px; border-width: 9px; }
+    .front { grid-template-columns: 1fr; gap: 24px; }
+  }
+</style>

@@ -1,0 +1,35 @@
+---
+// One item in the display case: a paper price tag, minus the price.
+import type { CollectionEntry } from "astro:content";
+import BakerStamp from "./art/BakerStamp.astro";
+interface Props { entry: CollectionEntry<"menu"> }
+const { entry } = Astro.props;
+const STATUS = { fresh: "Fresh", proving: "Proving", "day-old": "Day old" } as const;
+---
+<article class="tag-card">
+  <span class="hole" aria-hidden="true"></span>
+  <p class={`ribbon ribbon-${entry.data.status}`}>{STATUS[entry.data.status]}</p>
+  <h3><a href={`/menu/${entry.id}/`}>{entry.data.title}</a></h3>
+  <p class="tagline">{entry.data.tagline}</p>
+  <div class="foot">
+    <a class="more" href={`/menu/${entry.id}/`} aria-label={`Read the recipe for ${entry.data.title}`}>Read the recipe</a>
+    <BakerStamp bakers={entry.data.bakers} size={52} />
+  </div>
+</article>
+<style>
+  .tag-card { position: relative; background: var(--cream); border-radius: 14px 14px 10px 10px; padding: 30px 20px 16px; box-shadow: 0 3px 0 var(--cream-deep), 0 10px 22px rgba(42, 38, 34, 0.22); display: flex; flex-direction: column; gap: 6px; transition: transform 0.25s ease; }
+  .tag-card:nth-child(odd) { transform: rotate(-1.2deg); }
+  .tag-card:nth-child(even) { transform: rotate(1deg); }
+  .tag-card:hover, .tag-card:focus-within { transform: rotate(0) translateY(-4px); }
+  .hole { position: absolute; top: 10px; left: 50%; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: var(--window-frame); box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.4); }
+  .ribbon { align-self: flex-start; margin: 0; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; }
+  .ribbon-fresh { background: #dfe9cf; color: #3d5a2a; }
+  .ribbon-proving { background: #fbe6b8; color: #7a5410; }
+  .ribbon-day-old { background: #e6dfd2; color: #5f564b; }
+  h3 { margin: 4px 0 0; }
+  h3 a { color: var(--navy); text-decoration: none; }
+  h3 a:hover { color: var(--brick-deep); }
+  .tagline { margin: 0; color: var(--ink-soft); font-size: 0.98rem; }
+  .foot { margin-top: auto; padding-top: 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .more { font-weight: 700; }
+</style>

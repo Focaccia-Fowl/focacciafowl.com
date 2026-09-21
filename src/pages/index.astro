@@ -1,16 +1,37 @@
 ---
+import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Sky from "../components/Sky.astro";
-import Loaf from "../components/art/Loaf.astro";
-import Eagle from "../components/art/Eagle.astro";
-import Emblem from "../components/art/Emblem.astro";
-import BakerStamp from "../components/art/BakerStamp.astro";
+import Storefront from "../components/Storefront.astro";
+import MenuItem from "../components/MenuItem.astro";
+import Chalkboard from "../components/Chalkboard.astro";
+import Plaque from "../components/Plaque.astro";
+import { visibleEntries, sortNewestFirst } from "../lib/bench.ts";
+
+const menu = (await getCollection("menu")).sort((a, b) => a.data.order - b.data.order);
+const latest = sortNewestFirst(visibleEntries(await getCollection("bench"), import.meta.env.DEV))[0];
 ---
 <Base>
-  <div style="position:relative;height:520px"><Sky />
-    <div style="position:relative;z-index:2;display:flex;gap:40px;align-items:flex-end;justify-content:center;padding-top:150px;flex-wrap:wrap">
-      <Eagle size={200} /><Loaf size={260} /><Emblem size={200} />
-      <div style="background:#fbf3e1;padding:12px;border-radius:12px;display:flex;gap:10px"><BakerStamp bakers="loaf" /><BakerStamp bakers="eagle" /><BakerStamp bakers="both" /></div>
-    </div>
+  <div class="scene">
+    <Sky />
+    <Storefront>
+      <Fragment slot="case">{menu.map((entry) => <MenuItem entry={entry} />)}</Fragment>
+      <Chalkboard slot="board" entry={latest} />
+      <Plaque slot="plaque" />
+    </Storefront>
   </div>
+  <section class="about container">
+    <p class="kicker">what is this place</p>
+    <h2>A small bakery for things that are not bread.</h2>
+    <p class="lede">
+      Focaccia Fowl is where a loaf and an eagle keep the things they build: electronics, soldered boards,
+      odd software, local AI, and whatever science tangent came up this week. Some of it is finished.
+      Most of it is half baked, which is how we like it.
+    </p>
+    <p><a href="/menu/">See the whole menu</a> or <a href="/bench/">visit the bench</a>.</p>
+  </section>
 </Base>
+<style>
+  .scene { position: relative; padding-bottom: 0; }
+  .about { padding-top: 56px; padding-bottom: 72px; max-width: 760px; }
+</style>
