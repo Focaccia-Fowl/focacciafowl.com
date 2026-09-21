@@ -6,7 +6,7 @@ Date: 2026-09-20. Approved in chat by Chad.
 
 A public home for the Focaccia Fowl GitHub org ("Where half baked fowl projects roam"). It is a project
 showcase in the way kullhem.io is, and also a dedication: the org is named for two online handles,
-LoafOfBread (bread) and DigitalEagle (fowl), and for a shared love of electronics, soldering, PCBs,
+loafofbread (bread) and DigitalEagle (fowl), and for a shared love of electronics, soldering, PCBs,
 technology, and science.
 
 ## Constraints
@@ -15,7 +15,7 @@ technology, and science.
 - Own folder and git history at `~/Development/focacciafowl.com/`, pushed to a new public repo
   `Focaccia-Fowl/focacciafowl.com`. Nothing shared with the kullhem.io project.
 - All three org repos are private and stay private. The site never links to them and never shows code.
-- Handles only: LoafOfBread and DigitalEagle. No real names, no personal stories.
+- Handles only: loafofbread and DigitalEagle. No real names, no personal stories.
 - Public copy omits network addresses, hostnames, chat group names, and names of other private repos.
 - The theme evokes a cozy bakery in a painted seaside town. It leans on the qualities of that film style
   (soft painted skies, rounded clouds, warm window light, watercolor paper texture, calm motion) with
@@ -75,7 +75,7 @@ Three menu items written from the private READMEs, in the authors' own voice:
 The bench launches empty with its empty state. A `README` section explains how to add an entry.
 
 Dedication line on the plaque (draft, Chad to edit):
-"Baked by LoafOfBread and DigitalEagle. A loaf and an eagle, and everything they like to build together."
+"Baked by loafofbread and DigitalEagle. A loaf and an eagle, and everything they like to build together."
 
 ## Error handling
 

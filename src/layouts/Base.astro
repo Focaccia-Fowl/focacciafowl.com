@@ -5,7 +5,7 @@ interface Props { title?: string; description?: string; }
 const SITE = "Focaccia Fowl";
 const {
   title,
-  description = "The shop window for Focaccia Fowl. Half baked projects in electronics, software, and science, baked by LoafOfBread and DigitalEagle.",
+  description = "The shop window for Focaccia Fowl. Half baked projects in electronics, software, and science, baked by loafofbread and DigitalEagle.",
 } = Astro.props;
 const fullTitle = title ? `${title} · ${SITE}` : `${SITE} · Where half baked fowl projects roam`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -114,7 +114,7 @@ const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWit
     <main id="main"><slot /></main>
     <footer class="site-footer">
       <div class="container">
-        <div>Baked by <strong>LoafOfBread</strong> and <strong>DigitalEagle</strong>. Where half baked fowl projects roam.</div>
+        <div>Baked by <strong>loafofbread</strong> and <strong>DigitalEagle</strong>. Where half baked fowl projects roam.</div>
         <div><a href="/rss.xml">RSS for the bench</a></div>
       </div>
     </footer>

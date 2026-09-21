@@ -14,7 +14,7 @@
 
 - Static only. No backend, no analytics.
 - Never link to or name the private repos' URLs. Never show code from them.
-- Handles only: `LoafOfBread`, `DigitalEagle`. No real names, no personal stories.
+- Handles only: `loafofbread`, `DigitalEagle`. No real names, no personal stories.
 - Public copy omits network addresses, hostnames, chat group names, names of other private repos.
 - Original art only. No copied characters, artwork, names, or logos from any film or studio.
 - Palette: cream `#fbf3e1`, brick `#b5452f`, navy `#1f2f4a`, butter `#f2c46d`, sky `#9cc9e3`, crust `#8a5a2b`.
@@ -257,7 +257,7 @@ export const collections = { menu, bench };
 - [ ] **Step 1:** Storefront: hand-lettered sign board "Focaccia Fowl" in Fraunces with a painted drop shadow, scalloped brick-and-cream striped awning (repeating SVG pattern), shop wall in cream with a navy base course, two windows whose fill uses `--window-glow` at night.
 - [ ] **Step 2:** Display case: menu items sorted by `order`, each a paper tag card with title, tagline, status ribbon (`fresh` green-gold, `proving` butter, `day-old` muted), baker stamp, link to `/menu/<id>/`.
 - [ ] **Step 3:** Chalkboard: navy-black slate, Caveat lettering, "fresh today" heading, latest visible bench entry title, date, summary, link. Empty state text exactly: `first batch is in the oven.` with a link to `/bench/`.
-- [ ] **Step 4:** Plaque: brass gradient plate, text exactly: `Baked by LoafOfBread and DigitalEagle.` and `A loaf and an eagle, and everything they like to build together.`
+- [ ] **Step 4:** Plaque: brass gradient plate, text exactly: `Baked by loafofbread and DigitalEagle.` and `A loaf and an eagle, and everything they like to build together.`
 - [ ] **Step 5:** Index page composes Base (with `sky`), Sky, Storefront. Intro line under the sign: `Where half baked fowl projects roam.`
 - [ ] **Step 6:** Build, screenshot 1280px and 390px in day and night. Review and fix. Commit: `Build the shop window home page`.
 

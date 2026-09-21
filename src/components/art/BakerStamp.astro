@@ -2,7 +2,7 @@
 // Who baked it: a loaf, an eagle, or both. Pressed on like a rubber stamp.
 interface Props { bakers: "loaf" | "eagle" | "both"; size?: number }
 const { bakers, size = 64 } = Astro.props;
-const label = bakers === "loaf" ? "LoafOfBread" : bakers === "eagle" ? "DigitalEagle" : "LoafOfBread and DigitalEagle";
+const label = bakers === "loaf" ? "loafofbread" : bakers === "eagle" ? "DigitalEagle" : "loafofbread and DigitalEagle";
 const word = bakers === "loaf" ? "LOAF" : bakers === "eagle" ? "EAGLE" : "BOTH";
 ---
 <svg class="stamp" width={size} height={size} viewBox="0 0 80 80" role="img">

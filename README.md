@@ -2,7 +2,7 @@
 
 The shop window for [Focaccia Fowl](https://github.com/Focaccia-Fowl). Where half baked fowl projects roam.
 
-A static Astro site on GitHub Pages. No backend, no tracking. Baked by LoafOfBread and DigitalEagle.
+A static Astro site on GitHub Pages. No backend, no tracking. Baked by loafofbread and DigitalEagle.
 
 ## Run it
 
