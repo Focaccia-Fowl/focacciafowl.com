@@ -1,0 +1,121 @@
+{
+    "records": [
+        {
+            "name": "*",
+            "fqdn": "*.focacciafowl.com",
+            "type": "CNAME",
+            "scope": "public",
+            "owner": "provider-managed",
+            "source_of_truth": "porkbun",
+            "targets": [
+                "porkbun"
+            ],
+            "status": "unmanaged",
+            "observed_values": [
+                "uixie.porkbun.com"
+            ],
+            "observed_ttl": "600"
+        },
+        {
+            "name": "_acme-challenge",
+            "fqdn": "_acme-challenge.focacciafowl.com",
+            "type": "TXT",
+            "scope": "public",
+            "owner": "provider-managed",
+            "source_of_truth": "porkbun",
+            "targets": [
+                "porkbun"
+            ],
+            "status": "unmanaged",
+            "observed_values": [
+                "SEbq8pEGrW3yMrnTn0gM4fSMWKPJ_gKvTW7EzhyyGLw",
+                "TsuPrZMz1U5rIRgklLMYYf1iyjo_t_3pd6RaFEDuusU"
+            ],
+            "observed_ttl": "600"
+        },
+        {
+            "name": "_gh-focaccia-fowl-o",
+            "fqdn": "_gh-focaccia-fowl-o.focacciafowl.com",
+            "type": "TXT",
+            "scope": "public",
+            "owner": "provider-managed",
+            "source_of_truth": "porkbun",
+            "targets": [
+                "porkbun"
+            ],
+            "status": "unmanaged",
+            "observed_values": [
+                "e366e45e87"
+            ],
+            "observed_ttl": "600"
+        },
+        {
+            "name": "",
+            "fqdn": "focacciafowl.com",
+            "type": "ALIAS",
+            "scope": "public",
+            "owner": "provider-managed",
+            "source_of_truth": "porkbun",
+            "targets": [
+                "porkbun"
+            ],
+            "status": "unmanaged",
+            "observed_values": [
+                "uixie.porkbun.com"
+            ],
+            "observed_ttl": "600"
+        },
+        {
+            "name": "",
+            "fqdn": "focacciafowl.com",
+            "type": "MX",
+            "scope": "public",
+            "owner": "provider-managed",
+            "source_of_truth": "porkbun",
+            "targets": [
+                "porkbun"
+            ],
+            "status": "unmanaged",
+            "observed_values": [
+                "fwd1.porkbun.com",
+                "fwd2.porkbun.com"
+            ],
+            "observed_ttl": "600"
+        },
+        {
+            "name": "",
+            "fqdn": "focacciafowl.com",
+            "type": "NS",
+            "scope": "public",
+            "owner": "provider-managed",
+            "source_of_truth": "porkbun",
+            "targets": [
+                "porkbun"
+            ],
+            "status": "unmanaged",
+            "observed_values": [
+                "curitiba.porkbun.com",
+                "fortaleza.porkbun.com",
+                "maceio.porkbun.com",
+                "salvador.porkbun.com"
+            ],
+            "observed_ttl": "86400"
+        },
+        {
+            "name": "",
+            "fqdn": "focacciafowl.com",
+            "type": "TXT",
+            "scope": "public",
+            "owner": "provider-managed",
+            "source_of_truth": "porkbun",
+            "targets": [
+                "porkbun"
+            ],
+            "status": "unmanaged",
+            "observed_values": [
+                "v=spf1 include:_spf.porkbun.com ~all"
+            ],
+            "observed_ttl": "600"
+        }
+    ]
+}
